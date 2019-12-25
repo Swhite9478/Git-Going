@@ -1,13 +1,19 @@
 from send_email import * 
 from mining import *
+import urllib.parse
 import unittest
 import config
 import re
+import os
+
+
+MONGO_USERNAME = urllib.parse.quote_plus(str(os.getenv('MONGO_USERNAME')))
+MONGO_PASSWORD =  urllib.parse.quote_plus(str(os.getenv('MONGO_PASSWORD')))
 
 
 # Setup all variables for testing, ensure mongod is running in the background 
-MONGO_CLIENT = MongoClient('localhost', 27017) # Where are we connecting
-DB = MONGO_CLIENT.backend_db # The specific mongo database we are working with 
+MONGO_CLIENT = MongoClient('mongodb://%s:%s@192.168.99.100:27017/' % (MONGO_USERNAME, MONGO_PASSWORD)) # Where are we connecting
+DB = MONGO_CLIENT.Git_Going # The specific mongo database we are working with 
 REPOS_COLLECTION = db.repos # collection for storing all of a repo's main api json information 
 PULL_REQUESTS_COLLECTION = db.pullRequests # collection for storing all pull requests for all repos 
 TEST_REPO = "Swhite9478/OpenSourceDev" # repo for testing purposes 

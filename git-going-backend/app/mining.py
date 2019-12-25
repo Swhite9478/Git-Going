@@ -12,19 +12,22 @@ from mining_scripts.config import *
 from retrying import retry
 import os
 import time
+import urllib.parse
 from datetime import datetime
 from mining_scripts.batchify import BatchedGeneratorTask
-GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+MONGO_USERNAME = urllib.parse.quote_plus(str(os.getenv('MONGO_USERNAME')))
+MONGO_PASSWORD =  urllib.parse.quote_plus(str(os.getenv('MONGO_PASSWORD')))
 
 
 # precent issues with forking 
 if os.getpid() == 0:
     # Initial connection by parent process
-    client = MongoClient('mongodb://192.168.99.100:27017/') # Where are we connecting
+    client = MongoClient('mongodb://%s:%s@192.168.99.100:27017/' % (MONGO_USERNAME, MONGO_PASSWORD)) # Where are we connecting
 else: 
-    # No need to reconnect if we are connected
-    client = MongoClient('mongodb://192.168.99.100:27017/', connect=False)
+    # No need to reconnect if we are already connected
+    client = MongoClient('mongodb://%s:%s@192.168.99.100:27017/' % (MONGO_USERNAME, MONGO_PASSWORD) connect=False)
 
 db = client.Git_Going # The specific mongo database we are working with 
 
@@ -39,7 +42,7 @@ g = Github(GITHUB_TOKEN, per_page=100) # authorization for the github API
 
 # Wrapper function that will perform all mining steps necessary when
 # provided with the repository name
-def mine_and_store_all_repo_data(repo_name, username, email, queued_request):
+def mine_and_store_all_repo_data(repo_name):
 
     # Use pygit to eliminate any problems with users not spelling the repo name
     # exactly as it is on the actual repo 

@@ -15,9 +15,11 @@ Git-Going uses the *python:3.6.8-alpine* Docker image.
 
 Create a file called ***python-variables.env*** within git-going-backend/
 
-Write the following within ***python-variables.env***. Dont worry about using quotes, the python script will interpret it properly.
+Write the following within ***python-variables.env***. Dont worry about using quotes, the python script will interpret it properly. (The GITHUB_TOKEN is used to mine data from GitHub, and the two MONGO variables are necessary for Python to connect to the MongoDB database. You may leave them as 'devadmin' for development.)
 ```
 GITHUB_TOKEN=GitHub-OAuth-Token-String
+MONGO_USERNAME=devadmin
+MONGO_PASSWORD=devadmin
 ```
 
 All dependencies for the Backend are listed in the requirements.txt 
@@ -30,7 +32,13 @@ Use that ip address and the application will be hosted on port 5000.
 
 # React Frontend
 
+Hosted at http://192.168.99.100:3000/. More to come later.
+
+
 # MongoDB Database
+
+Hosted at http://192.168.99.100:27017/. More to come later. 
+
 
 # Build the Project
 ```CMD
