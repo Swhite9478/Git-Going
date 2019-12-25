@@ -28,11 +28,17 @@ services:
     # depends_on: 
     #   - mongodb
     
-  # frontend:
-  #   build: './git-going-frontend'
-  #   ports:
-  #     - '3000:3000'
+  react:
+    container_name: 'react'
+    build: 
+      context: ./git-going-frontend
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    volumes: 
+      - frontend:/code/
 
   # Add Additional Configs as Needed
 volumes:
   backend:
+  frontend:
