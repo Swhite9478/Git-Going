@@ -1,0 +1,38 @@
+version: "3.2"
+services:
+ # Mongo Service from https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3 
+  # mongodb:
+  #   image: 'mongo'
+  #   container_name: 'mongodb'
+  #   environment: 
+  #     - MONGO_INITDB_DATABASE=Git_Going
+  #     - MONGO_INITDB_USERNAME=Admin
+  #     - MONGO_INITDB_ROOT_PASSWORD=Gitossum
+  #   volumes: 
+  #     - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+  #     - ./mongo-volume:/data/db
+  #   ports:
+  #     - '27017:27017'
+  
+  flask:
+    container_name: 'flask'
+    env_file:
+      - ./git-going-backend/python-variables.env
+    build: 
+       context: ./git-going-backend
+       dockerfile: Dockerfile
+    ports: 
+      - '5000:5000'
+    volumes: 
+      - backend:/code/
+    # depends_on: 
+    #   - mongodb
+    
+  # frontend:
+  #   build: './git-going-frontend'
+  #   ports:
+  #     - '3000:3000'
+
+  # Add Additional Configs as Needed
+volumes:
+  backend:
