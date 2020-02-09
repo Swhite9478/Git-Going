@@ -5,6 +5,7 @@ import { About, Home, RequestForm, Repos, Signup, Activate, Login } from "../../
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import "../../styles/nav.css";
+import {constants, asPath} from '../../constants/constants';
 
 export default class Navigation extends Component {
     
@@ -14,42 +15,44 @@ export default class Navigation extends Component {
             <div>
               <ul className="nav">
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to={asPath(constants.HOME)}>Home</Link>
                 </li>
                 <li>
-                  <Link to="/About">About</Link>
+                  <Link to={asPath(constants.ABOUT)}>About</Link>
                 </li>
                 <li>
-                  <Link to="/RequestForm">Request a Repo</Link>
+                  <Link to={asPath(constants.REQUEST_REPO)}>
+                    Request a Repo
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/Repos">View Repos</Link>
+                  <Link to={asPath(constants.REPOS)}>View Repos</Link>
                 </li>
                 <li>
-                  <Link to="/Login">Login</Link>
+                  <Link to={asPath(constants.LOGIN)}>Login</Link>
                 </li>
               </ul>
 
               <Switch>
-                <Route exact path="/">
-                  <Home />
+                <Route exact path={asPath(constants.HOME)}>
+                  <Home nav={this}/>
                 </Route>
-                <Route path="/About">
+                <Route path={asPath(constants.ABOUT)}>
                   <About />
                 </Route>
-                <Route path="/Activate">
+                <Route path={asPath(constants.ACTIVATE)}>
                   <Activate />
                 </Route>
-                <Route path="/RequestForm">
+                <Route path={asPath(constants.REQUEST_REPO)}>
                   <RequestForm />
                 </Route>
-                <Route path="/Repos">
+                <Route path={asPath(constants.REPOS)}>
                   <Repos />
                 </Route>
-                <Route path="/Signup">
+                <Route path={asPath(constants.SIGNUP)}>
                   <Signup />
                 </Route>
-                <Route path="/Login">
+                <Route path={asPath(constants.LOGIN)}>
                   <Login />
                 </Route>
               </Switch>
