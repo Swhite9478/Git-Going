@@ -1,11 +1,15 @@
-import {React, Component} from 'react';
+import React, {Component} from 'react';
+import { Header, Footer } from '../components/layouts';
 
-class Home extends Component {
+
+export default class Home extends Component {
     render() {
         return (
-         <h1>Hello World! This is from React</h1>
+            <div>
+                <Header />
+                <h1>Hello World! This is from React</h1>
+                <Footer />
+            </div>
         );
     }
 }
-
-export default Home;
