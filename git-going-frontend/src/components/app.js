@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
-import { Home } from '../pages';
+import { Navigation } from './layouts';
+
+// import styled from "styled-components";
+
 
 export default class App extends Component {
+
     render() {
         return (
-            <div>
-                <Home />
-            </div>
-        )
+          <div>
+            <Navigation />
+          </div>
+        );
     }
 }

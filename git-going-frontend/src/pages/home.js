@@ -7,7 +7,7 @@ export default class Home extends Component {
         return (
             <div>
                 <Layout >
-                    <h1>Hello World! This is from React</h1>
+                    <h1>Home Page</h1>
                 </Layout >
             </div>
         );

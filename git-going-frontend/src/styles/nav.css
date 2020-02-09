@@ -1,0 +1,32 @@
+.nav {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        /* background-color: rgb(66, 77, 233); */
+        background-color: rgb(0, 44, 126);
+        width: 100%;
+    }
+
+    .nav li {
+        float: left;
+        margin-left: 5%;
+        width: auto;
+        height: "2%";
+    }
+
+    .nav li a {
+        display: block;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    /* Change the link color to #111 (black) on hover */
+
+    .nav li a:hover {
+        /* background-color: rgb(94, 215, 252); */
+        background-color: gold;
+        color: black;
+        transition: 0.5s;
+    }
