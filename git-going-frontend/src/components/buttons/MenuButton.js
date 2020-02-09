@@ -8,8 +8,9 @@ import AboutButton from "./AboutButton";
 class MenuButton extends React.Component {
   constructor(props) {
     super(props);
-    this.navRoutes = props.navRoutes;
-    this.state = { anchorEl: null, navRoutes: this.navRoutes };
+    this.app = props.app;
+    this.currentPage = props.currentPage;
+    this.state = { anchorEl: null, currentPage: this.currentPage };
   }
 
   handleChange = (event, checked) => {
@@ -20,20 +21,22 @@ class MenuButton extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = event => {
+  handleClose = () => {
     this.setState({ anchorEl: null });
   };
 
   render() {
-    const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const {anchorEl } = this.state;
     const open = Boolean(anchorEl);
     const Wrapper = this.props.iconType;
     const listItems = this.props.items.map(link => {
-      if (link === constants.ABOUT) {
-        return <AboutButton navRoutes={this.navRoutes}/>;
-      } else {
-        return <MenuItem onClick={this.handleClose}>{link}</MenuItem>;
+      switch(link) {
+        
+        case constants.ABOUT:
+          return <AboutButton app={this.app} currentPage={this.currentPage} menu={this}/>;
+          
+        default:
+           return <MenuItem onClick={this.handleClose}>{link}</MenuItem>;
       }
     });
 
