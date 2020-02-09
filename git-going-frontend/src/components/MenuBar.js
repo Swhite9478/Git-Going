@@ -37,7 +37,7 @@ export default function MenuAppBar({currentPage, app}) {
             iconType={MenuIcon}
             currentPage={currPage}
             app={app}
-            items={["Home", constants.ABOUT, "Request a Repo", "Repos"]}
+            items={[constants.HOME, constants.ABOUT, constants.REQUEST_REPO, constants.REPOS]}
           />
           <Typography variant="h6" className={classes.title}>
             {currPage}

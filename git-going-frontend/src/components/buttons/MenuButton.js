@@ -3,14 +3,20 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import {constants, asPath} from '../../constants/constants';
-import AboutButton from "./AboutButton";
+import { NavLink } from "react-router-dom";
+
 
 class MenuButton extends React.Component {
   constructor(props) {
     super(props);
     this.app = props.app;
     this.currentPage = props.currentPage;
-    this.state = { anchorEl: null, currentPage: this.currentPage };
+    this.state = {
+      anchorEl: null,
+      currentPage: this.currentPage
+    };
+    
+    this.handleSelection = this.handleSelection.bind(this);
   }
 
   handleChange = (event, checked) => {
@@ -21,23 +27,35 @@ class MenuButton extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = () => {
+  handleClose = (page) => {
     this.setState({ anchorEl: null });
   };
+
+  handleSelection = function(page) {
+    this.app.setState({ currentPage: page });
+    this.setState({ anchorEl: null });
+  }
+
+  handleSelectionPre(link) {
+    console.log(link);
+    this.handleSelection(link);
+  }
 
   render() {
     const {anchorEl } = this.state;
     const open = Boolean(anchorEl);
     const Wrapper = this.props.iconType;
+
     const listItems = this.props.items.map(link => {
-      switch(link) {
-        
-        case constants.ABOUT:
-          return <AboutButton app={this.app} currentPage={this.currentPage} menu={this}/>;
-          
-        default:
-           return <MenuItem onClick={this.handleClose}>{link}</MenuItem>;
-      }
+
+      return (
+        <MenuItem open={open} onClick={() => this.handleSelection(link)}>
+            <NavLink to={asPath(link)} style={constants.PLAIN_TEXT}>
+              {" "}
+              {link}{" "}
+            </NavLink>
+        </MenuItem>
+      );
     });
 
     return (
