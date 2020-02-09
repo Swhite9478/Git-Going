@@ -33,6 +33,7 @@ def verifyMongoDatabaseConnection():
 
 if __name__ == '__main__':
     print(' * Verifying MongoDB connection...')
+    
     # Fail gracefully if we cannot connect to Mongo
     verifyMongoDatabaseConnection()
 
