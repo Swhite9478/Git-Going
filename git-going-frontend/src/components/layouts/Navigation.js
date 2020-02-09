@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { About, Home, RequestForm, Repos, Signup, Activate } from "../../pages";
+import { About, Home, RequestForm, Repos, Signup, Activate, Login } from "../../pages";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -26,7 +26,7 @@ export default class Navigation extends Component {
                   <Link to="/Repos">View Repos</Link>
                 </li>
                 <li>
-                  <Link to="/Signup">Signup for Git-Going</Link>
+                  <Link to="/Login">Login</Link>
                 </li>
               </ul>
 
@@ -48,6 +48,9 @@ export default class Navigation extends Component {
                 </Route>
                 <Route path="/Signup">
                   <Signup />
+                </Route>
+                <Route path="/Login">
+                  <Login />
                 </Route>
               </Switch>
             </div>
