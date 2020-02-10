@@ -6,10 +6,10 @@ import logo from "../../assets/logo.svg";
 const Brand = () => {
   
   return (
-    <Fragment>
-      <Image src={logo} alt="Company Logo" />
-      <Text>Git-Going</Text>
-    </Fragment>
+      <div>
+        <Image src={logo} alt="Company Logo" />
+        <Text>Git-Going</Text>
+      </div>
   ); 
 };
 
@@ -32,6 +32,7 @@ const Text = styled.h3`
   border-bottom: 1px solid transparent;
   justify-self: end;
   margin: auto 0;
+  padding:0;
   
   top: 1.2rem;
   left: 7rem;

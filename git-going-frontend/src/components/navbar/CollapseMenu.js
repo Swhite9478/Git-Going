@@ -1,10 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-
-import { useSpring, animated } from "react-spring";
+import { asPath, constants } from "../../constants/constants";
+import { useSpring, animated, config } from "react-spring";
 
 const CollapseMenu = props => {
   const { open } = useSpring({ open: props.navbarState ? 0 : 1 });
+
+  const linkAnimation = useSpring({
+    from: { transform: "translate3d(0, 30px, 0)", opacity: 0 },
+    to: { transform: "translate3d(0, 0, 0)", opacity: 1 },
+    delay: 800,
+    config: config.wobbly
+  });
 
   if (props.navbarState === true) {
     return (
@@ -19,26 +26,26 @@ const CollapseMenu = props => {
         }}
       >
         <NavLinks>
-          <li>
-            <a href="/" onClick={props.handleNavbar}>
-              link n1
-            </a>
-          </li>
-          <li>
-            <a href="/" onClick={props.handleNavbar}>
-              link n2
-            </a>
-          </li>
-          <li>
-            <a href="/" onClick={props.handleNavbar}>
-              link n3
-            </a>
-          </li>
-          <li>
-            <a href="/" onClick={props.handleNavbar}>
-              link n4
-            </a>
-          </li>
+          <NavLinks style={linkAnimation}>
+            <li>
+              <a href={asPath(constants.HOME)}>Home</a>
+            </li>
+            <li>
+              <a href={asPath(constants.ABOUT)}>About</a>
+            </li>
+            <li>
+              <a href={asPath(constants.REQUEST_REPO)}>Request a Repository</a>
+            </li>
+            <li>
+              <a href={asPath(constants.REPOS)}>Collected Repositories</a>
+            </li>
+            <li>
+              <a href={asPath(constants.SIGNUP)}>Create an Account</a>
+            </li>
+            <li>
+              <a href={asPath(constants.LOGIN)}>Login</a>
+            </li>
+          </NavLinks>
         </NavLinks>
       </CollapseWrapper>
     );
