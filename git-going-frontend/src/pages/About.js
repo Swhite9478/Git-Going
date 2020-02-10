@@ -7,7 +7,6 @@ export default class About extends Component {
         return (
             <div>
                 <Layout >
-                    <h1>About Page</h1>
                 </Layout >
             </div>
         );

@@ -7,7 +7,6 @@ export default class MiningForm extends Component {
         return (
             <div>
                 <Layout >
-                    <h1>Mining Form Page</h1>
                 </Layout >
             </div>
         );

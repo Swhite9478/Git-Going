@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import { Navigation } from './layouts';
-import MenuAppBar from "./MenuBar";
 import { constants, asPath } from '../constants/constants';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
   About,
   Home,
@@ -12,45 +10,41 @@ import {
   Activate,
   Login
 } from "../pages";
+import SignUp from '../pages/Signup';
+import Navbar from "./navbar/Navbar";
+import GlobalStyle from "../styles/Global";
 
-// import styled from "styled-components";
 
 
 export default class App extends Component {
   state = {
-    currentPage: constants.HOME
-  }
+    navbarOpen: false
+  };
 
-    render() {
-        return (
-          <div>
-            <Router>
-              <MenuAppBar app={this} currentPage={this.state.currentPage} />
-              <Switch>
-                <Route exact path={asPath(constants.HOME)}>
-                  <Home nav={this} />
-                </Route>
-                <Route path={asPath(constants.ABOUT)}>
-                  <About />
-                </Route>
-                <Route path={asPath(constants.ACTIVATE)}>
-                  <Activate />
-                </Route>
-                <Route path={asPath(constants.REQUEST_REPO)}>
-                  <RequestForm />
-                </Route>
-                <Route path={asPath(constants.REPOS)}>
-                  <Repos />
-                </Route>
-                <Route path={asPath(constants.SIGNUP)}>
-                  <Signup />
-                </Route>
-                <Route path={asPath(constants.LOGIN)}>
-                  <Login />
-                </Route>
-              </Switch>
-            </Router>
-          </div>
-        );
-    }
+  handleNavbar = () => {
+    this.setState({ navbarOpen: !this.state.navbarOpen });
+  };
+
+  render() {
+    return (
+      <>
+        <Navbar
+          navbarState={this.state.navbarOpen}
+          handleNavbar={this.handleNavbar}
+        />
+        <Router>
+          <Switch>
+            <Route exact path={asPath(constants.HOME)} component={Home} />
+            <Route exact path={asPath(constants.ABOUT)} component={About} />
+            <Route exact path={asPath(constants.ACTIVATE)} component={Activate} />
+            <Route exact path={asPath(constants.REQUEST_REPO)} component={RequestForm} />
+            <Route exact path={asPath(constants.REPOS)} component={Repos} />
+            <Route exact path={asPath(constants.SIGNUP)} component={SignUp} />
+            <Route exact path={asPath(constants.LOGIN)} component={Login} />
+          </Switch>
+        </Router>
+        <GlobalStyle />
+      </>
+    );
+  }
 }

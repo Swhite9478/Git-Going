@@ -7,7 +7,6 @@ export default class Repos extends Component {
         return (
             <div>
                 <Layout >
-                    <h1>Repos Page</h1>
                 </Layout >
             </div>
         );
