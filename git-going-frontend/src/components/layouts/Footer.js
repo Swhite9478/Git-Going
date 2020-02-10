@@ -40,7 +40,7 @@ export default class Footer extends Component {
             Git-Going
             {" "}
             {new Date().getFullYear()}
-            {"."}
+            {". "}
             Created by Stephen White
             </Typography>
         );
