@@ -4,7 +4,7 @@ import { Footer } from '.';
 export default class Layout extends Component {
     render() {
         return (
-            <div style={{padding:0}}>
+            <div style={{paddingTop:'5rem'}}>
                 {this.props.children}
                 <Footer />
             </div>
