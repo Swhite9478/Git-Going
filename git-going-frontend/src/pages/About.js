@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Layout } from '../components/layouts';
 
 
-export default class About extends Component {
-    render() {
+const about = (props) => {
         return (
             <div>
                 <Layout >
+                    <h1>About</h1>
                 </Layout >
             </div>
         );
-    }
 }
+
+export default about;

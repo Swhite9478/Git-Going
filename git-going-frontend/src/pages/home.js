@@ -1,20 +1,18 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Layout} from '../components/layouts';
 
+const styles = {
+    display:'inline-block'
+};
 
-export default class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.nav = props.nav;
-        this.state = { nav: this.nav };
-    }
-
-    render() {
+const home = (props) => {
     return (
-        <div> 
-        <Layout >
+      <div>
+        <Layout>
+          <h1>Home</h1>
         </Layout>
-        </div>
+      </div>
     );
-    }
 }
+
+export default home; 

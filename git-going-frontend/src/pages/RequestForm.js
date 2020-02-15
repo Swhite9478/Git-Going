@@ -39,15 +39,18 @@ export default function MiningForm() {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper} style={{ marginTop: "50%" }}>
+
           <Avatar
             style={{ backgroundColor: "black" }}
             className={classes.large}
           >
             <GitHubIcon fontSize="large" color="inherit" />
           </Avatar>
+
           <Typography component="h1" variant="h5">
             We Don't Have it? Request it!
           </Typography>
+
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={5}>
@@ -78,16 +81,15 @@ export default function MiningForm() {
                   fullWidth
                   id="repo"
                   label="Repo"
-                  autoFocus
                 />
               </Grid>
             </Grid>
+            
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
-            //   style={{backgroundColor: "black"}}
               className={classes.submit}
             >
               Submit Request
