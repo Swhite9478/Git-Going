@@ -37,7 +37,7 @@ export default function MiningForm() {
     <Layout>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={classes.paper} style={{ marginTop: "50%" }}>
+        <div className={classes.paper} style={{ marginTop: "30%" }}>
 
           <Avatar
             style={{ backgroundColor: "black" }}

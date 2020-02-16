@@ -1,7 +1,27 @@
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
+import minedRepos from "../../assets/minedRepos.png";
+import tableImage from "../../assets/minedRepoTable.png";
+import visualization1 from "../../assets/git-oss-um-visualization-1.png";
+import visualization2 from "../../assets/git-oss-um-linechart-2.png";
+import capstoneLogo from "../../assets/CapstoneLogo300.jpg";
+import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
 
-export default () => (
+const useStyles = makeStyles(theme => ({
+  carouselImage: {
+     height: '100%',
+      position: 'absolute',
+      margin: 'auto 0',
+      top: '0px',
+      left: '0px',
+      float: 'left'
+  }
+}));
+
+export default () =>{ 
+  const classes = useStyles();
+  return (
   <Carousel
     autoPlay
     infiniteLoop
@@ -12,46 +32,19 @@ export default () => (
     useKeyboardArrows
   >
     <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-1.jpg" />
+      <img src={capstoneLogo} className={classes.carouselImage} />
     </div>
     <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-2.jpg" />
+      <img src={minedRepos} />
     </div>
     <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-3.jpg" />
+      <img src={tableImage} />
     </div>
     <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-4.jpg" />
+      <img src={visualization1} />
     </div>
     <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-5.jpg" />
-    </div>
-    <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-6.jpg" />
-    </div>
-    <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-7.jpg" />
-    </div>
-    <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-8.jpg" />
-    </div>
-    <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-9.jpg" />
-    </div>
-    <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-10.jpg" />
-    </div>
-    <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-11.jpg" />
-    </div>
-    <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-12.jpg" />
-    </div>
-    <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-13.jpg" />
-    </div>
-    <div>
-      <img src="http://lorempixel.com/output/cats-q-c-640-480-14.jpg" />
+      <img src={visualization2} />
     </div>
   </Carousel>
-);
+);}
