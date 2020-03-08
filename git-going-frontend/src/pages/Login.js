@@ -13,6 +13,11 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Layout } from "../components/layouts";
+import { constants, asPath } from '../constants/constants';
+import bcrypt from 'bcryptjs';
+import { Home } from ".";
+import { Redirect } from "react-router-dom";
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,9 +52,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SignInSide() {
+export default function SignInSide(props) {
   const classes = useStyles();
-
+  const handleEncryption = (username, password, props) => {
+    let SALT_WORK_FACTOR = 10;
+    const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
+    const hash = bcrypt.hashSync(password, salt);
+    return {auth:{username:username, password:hash}};
+  }
+  
   return (
     <Layout>
       <Grid container component="main" className={classes.root}>
@@ -63,7 +74,15 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <form className={classes.form} noValidate>
+            <form
+              className={classes.form}
+              onSubmit={(event) => {
+                const result = handleEncryption(event.target.email.value, event.target.password.value);
+                alert(JSON.stringify(result));
+                // props.push(result);
+                props.history.push(asPath(constants.HOME));
+              }}
+            >
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -111,8 +130,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
               </Grid>
-              <Box mt={5}>
-              </Box>
+              <Box mt={5}></Box>
             </form>
           </div>
         </Grid>
