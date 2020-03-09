@@ -15,9 +15,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Layout } from "../components/layouts";
 import { constants, asPath } from '../constants/constants';
 import bcrypt from 'bcryptjs';
-import { Home } from ".";
-import { Redirect } from "react-router-dom";
-
+import emailValidator from 'email-validator';
+import { Component } from 'react';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,89 +51,117 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SignInSide(props) {
-  const classes = useStyles();
-  const handleEncryption = (username, password, props) => {
+export default class SignInSide extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { errorText: '', value: props.value }
+  }
+
+  handleEncryption = (password) => {
     let SALT_WORK_FACTOR = 10;
     const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
-    const hash = bcrypt.hashSync(password, salt);
-    return {auth:{username:username, password:hash}};
+    return bcrypt.hashSync(password, salt);
+  }
+
+  isValidEmail = (emailAddress) => {
+    return emailValidator.validate(emailAddress);
+  }
+
+  handleFormSubmission = (formDetails) => {
+    let formResultObj = {
+      isValidEmail: this.isValidEmail(formDetails.emailAddress),
+      authDetails: {
+        emailAddress: formDetails.emailAddress,
+        encryptedPass: this.handleEncryption(formDetails.password)
+        }
+    };
+    return formResultObj;
+  }
+
+  onEmailFieldChange = (event) => {
+    
   }
   
-  return (
-    <Layout>
-      <Grid container component="main" className={classes.root}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
-            <form
-              className={classes.form}
-              onSubmit={(event) => {
-                const result = handleEncryption(event.target.email.value, event.target.password.value);
-                alert(JSON.stringify(result));
-                // props.push(result);
-                props.history.push(asPath(constants.HOME));
-              }}
-            >
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
+  render(){
+    const classes = useStyles();
+    return (
+      <Layout>
+        <Grid container component="main" className={classes.root}>
+          <CssBaseline />
+          <Grid item xs={false} sm={4} md={7} className={classes.image} />
+          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <div className={classes.paper}>
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
+              <form
+                className={classes.form}
+                onSubmit={(event) => {
+                  const result = this.handleFormSubmission({
+                    emailAddress: event.target.email.value, 
+                    password: event.target.password.value
+                  });
+                  alert(JSON.stringify(result));
+                  // props.push(result);
+                  this.props.history.push(asPath(constants.HOME));
+                }}
               >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Remember me"
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Sign In
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <Link href="#" variant="body2">
+                      Forgot password?
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link href="/SignUp" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Link href="/SignUp" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-              <Box mt={5}></Box>
-            </form>
-          </div>
+                <Box mt={5}></Box>
+              </form>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
-    </Layout>
-  );
+      </Layout>
+    );
+  }
 }
