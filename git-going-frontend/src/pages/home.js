@@ -10,6 +10,7 @@ const home = (props) => {
       <div>
         <Layout>
           <h1>Home</h1>
+          {JSON.stringify(props.auth)}
         </Layout>
       </div>
     );

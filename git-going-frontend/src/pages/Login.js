@@ -20,7 +20,7 @@ import '../styles/login.css';
 export default class SignInSide extends Component {
   constructor(props) {
     super(props)
-    this.state = { errorText: '', value: props.value }
+    this.state = { errorText: '', isInputDataValid: false}
   }
 
   handleEncryption = (password) => {
@@ -33,19 +33,13 @@ export default class SignInSide extends Component {
     return emailValidator.validate(emailAddress);
   }
 
-  handleFormSubmission = (formDetails) => {
-    let formResultObj = {
-      isValidEmail: this.isValidEmail(formDetails.emailAddress),
-      authDetails: {
-        emailAddress: formDetails.emailAddress,
-        encryptedPass: this.handleEncryption(formDetails.password)
-      }
-    };
-    return formResultObj;
-  }
 
   onEmailFieldChange = (event) => {
-
+    if(!this.isValidEmail(event.target.value)) {
+      this.setState({ errorText: " (Invalid)", isInputDataValid:false});
+    } else {
+      this.setState({ errorText: '', isInputDataValid:true});
+    }
   }
 
   render() {
@@ -64,15 +58,7 @@ export default class SignInSide extends Component {
               </Typography>
               <form
                 className="form"
-                onSubmit={(event) => {
-                  const result = this.handleFormSubmission({
-                    emailAddress: event.target.email.value,
-                    password: event.target.password.value
-                  });
-                  alert(JSON.stringify(result));
-                  // props.push(result);
-                  this.props.history.push(asPath(constants.HOME));
-                }}
+                onSubmit={this.props.onSubmit}
               >
                 <TextField
                   variant="outlined"
@@ -80,10 +66,12 @@ export default class SignInSide extends Component {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label={`Email Address${this.state.errorText}`}
                   name="email"
                   autoComplete="email"
                   autoFocus
+                  error={this.state.errorText}
+                  onChange={this.onEmailFieldChange.bind(this)}
                 />
                 <TextField
                   variant="outlined"
@@ -107,6 +95,7 @@ export default class SignInSide extends Component {
                   color="primary"
                   className="submit"
                   style={{margin: "3rem 0rem 2rem"}}
+                  disabled={!this.state.isInputDataValid}
                 >
                   Sign In
                 </Button>
