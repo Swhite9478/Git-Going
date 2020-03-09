@@ -1,0 +1,36 @@
+.root {
+    height: "91.7vh"
+  }
+
+.image {
+    background-size: cover;
+    background-color: #fafafa;
+    background-image: url(https://source.unsplash.com/featured/?tech);
+    background-repeat: no-repeat;
+    background-position: center;
+    height:61.2rem;
+}
+
+  .paper {
+    margin: 8rem 4rem;
+    display: "flex";
+    flex-direction: "column";
+    align-items: "center";
+  }
+
+  .avatar {
+    margin: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .form {
+    width: "100%";
+    margin-top: 1rem;
+  }
+
+  .submit {
+    color:pink;
+  }
